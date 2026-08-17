@@ -2,6 +2,21 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import os
 
 class Site(BaseHTTPRequestHandler):
+    if self.path == "/music.mp3":
+    try:
+        with open("music.mp3", "rb") as file:
+            music = file.read()
+
+        self.send_response(200)
+        self.send_header("Content-Type", "audio/mpeg")
+        self.send_header("Content-Length", str(len(music)))
+        self.end_headers()
+        self.wfile.write(music)
+
+    except FileNotFoundError:
+        self.send_error(404, "Music not found")
+
+    return
     def do_GET(self):
 
         html = """<!DOCTYPE html>
