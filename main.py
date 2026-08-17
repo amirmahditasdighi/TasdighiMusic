@@ -2,29 +2,33 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import os
 
 class Site(BaseHTTPRequestHandler):
-    if self.path == "/music.mp3":
-    try:
-        with open("music.mp3", "rb") as file:
-            music = file.read()
 
-        self.send_response(200)
-        self.send_header("Content-Type", "audio/mpeg")
-        self.send_header("Content-Length", str(len(music)))
-        self.end_headers()
-        self.wfile.write(music)
-
-    except FileNotFoundError:
-        self.send_error(404, "Music not found")
-
-    return
     def do_GET(self):
 
+        # فایل موزیک
+        if self.path == "/music.mp3":
+            try:
+                with open("music.mp3", "rb") as file:
+                    music = file.read()
+
+                self.send_response(200)
+                self.send_header("Content-Type", "audio/mpeg")
+                self.send_header("Content-Length", str(len(music)))
+                self.end_headers()
+                self.wfile.write(music)
+
+            except FileNotFoundError:
+                self.send_error(404, "Music not found")
+
+            return
+
+        # صفحه سایت
         html = """<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="utf-8">
-    <title>متن اهنگ خونه پر از رنج سکوته وای دلم تنگه</title>
+    <title>TASDIGHI MUSIC</title>
 
     <style>
         body {
@@ -35,6 +39,11 @@ class Site(BaseHTTPRequestHandler):
         h1 {
             font-size: 50px;
             line-height: 2;
+        }
+
+        audio {
+            width: 400px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -63,6 +72,11 @@ class Site(BaseHTTPRequestHandler):
         روزی به چشمِ تو من بهترین بودم<br>
         عاشق ترین بودی عاشق ترین بودم
     </h1>
+
+    <audio controls>
+        <source src="/music.mp3" type="audio/mpeg">
+        مرورگر شما از پخش موزیک پشتیبانی نمی‌کند.
+    </audio>
 
 </body>
 </html>"""
