@@ -9,7 +9,7 @@ class Site(BaseHTTPRequestHandler):
 
 <head>
     <meta charset="utf-8">
-    <title>شرکت تسدیگی</title>
+    <title>متن اهنگ خونه پر از رنج سکوته وای دلم تنگه</title>
 
     <style>
         body {
